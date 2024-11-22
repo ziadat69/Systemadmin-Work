@@ -1,0 +1,64 @@
+
+### **1. Erstellen der Benutzer**
+- Erstellen der Benutzer:
+  ```bash
+  sudo adduser user1
+  sudo adduser user2
+  sudo adduser user3
+  ```
+
+### **2. Hinzufügen der Benutzer zu den Gruppen**
+- Benutzer `user1` zur Gruppe `sudo` hinzufügen:
+  ```bash
+  sudo usermod -aG sudo user1
+  ```
+- Benutzer `user2` zur Gruppe `admin` hinzufügen:
+  ```bash
+  sudo usermod -aG admin user2
+  ```
+- Benutzer `user3` zur Gruppe `guest` hinzufügen:
+  ```bash
+  sudo usermod -aG guest user3
+  ```
+
+### **3. Anpassen der Berechtigungen über die Datei `sudoers`**
+- Die Datei `sudoers` bearbeiten:
+  ```bash
+  sudo visudo
+  ```
+- Die Berechtigungen für die Gruppen festlegen:
+  - Gruppe `sudo`:
+    ```bash
+    %sudo   ALL=(ALL:ALL) ALL
+    ```
+  - Gruppe `admin`:
+    ```bash
+    %admin  ALL=(ALL) ALL
+    ```
+  - Gruppe `guest`:
+    ```bash
+    %guest  ALL=(ALL) NOPASSWD: /bin/ls, /bin/cat
+    ```
+
+### **4. Absichern der Benutzerkonten**
+- Die Anmeldung als `root` über SSH deaktivieren:
+  - Die Datei `/etc/ssh/sshd_config` bearbeiten:
+    ```bash
+    PermitRootLogin no
+    ```
+  - Den SSH-Dienst neu starten:
+    ```bash
+    sudo systemctl restart ssh
+    ```
+
+### **5. Überprüfen der Einstellungen**
+- Überprüfen, zu welchen Gruppen die Benutzer gehören:
+  ```bash
+  groups user1
+  groups user2
+  groups user3
+  ```
+- Überprüfen, welche `sudo`-Berechtigungen einem Benutzer zugewiesen sind:
+  ```bash
+  sudo -l -U user1
+  ```

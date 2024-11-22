@@ -1,0 +1,130 @@
+
+## **1. Installation von SSH**
+
+1. **Aktualisiere die Paketliste und installiere OpenSSH-Server**:
+   ```bash
+   sudo apt update
+   sudo apt install openssh-server -y
+   ```
+
+2. **Überprüfen, ob der SSH-Dienst läuft**:
+   ```bash
+   sudo systemctl status ssh
+   ```
+
+   - Falls der Dienst nicht läuft, starte ihn:
+     ```bash
+     sudo systemctl start ssh
+     ```
+
+   - Automatischer Start bei jedem Systemstart:
+     ```bash
+     sudo systemctl enable ssh
+     ```
+
+---
+
+## **2. Erstellen eines neuen Benutzers**
+
+1. **Einen neuen Benutzer erstellen**:
+   ```bash
+   sudo adduser neuerbenutzer
+   ```
+   - Ersetze `neuerbenutzer` mit dem gewünschten Benutzernamen.
+
+2. **Den neuen Benutzer zur `sudo`-Gruppe hinzufügen**:
+   ```bash
+   sudo usermod -aG sudo neuerbenutzer
+   ```
+
+---
+
+## **3. SSH-Konfiguration anpassen**
+
+1. **Datei öffnen**:
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   ```
+
+2. **Ändere oder füge folgende Zeilen hinzu**:
+
+   - **Root-Login deaktivieren**:
+     ```bash
+     PermitRootLogin no
+     ```
+
+   - **Passwort-Authentifizierung deaktivieren** (falls nur SSH-Schlüssel verwendet werden sollen):
+     ```bash
+     PasswordAuthentication no
+     ```
+
+   - **Schlüssel-Authentifizierung aktivieren**:
+     ```bash
+     PubkeyAuthentication yes
+     ```
+
+3. **Speichern und schließen**:
+   - Drücke `Ctrl + O`, dann `Enter`, und anschließend `Ctrl + X`.
+
+---
+
+## **4. SSH-Schlüssel einrichten**
+
+1. **SSH-Schlüssel auf dem Client erstellen**:
+   ```bash
+   ssh-keygen -t rsa -b 4096
+   ```
+   - Der Schlüssel wird standardmäßig unter `~/.ssh/id_rsa` gespeichert.
+
+2. **Den öffentlichen Schlüssel auf den Server übertragen**:
+   ```bash
+   ssh-copy-id neuerbenutzer@server-ip
+   ```
+   - Ersetze `neuerbenutzer` mit dem Benutzernamen und `server-ip` mit der IP-Adresse des Servers.
+
+3. **Verbindung testen**:
+   ```bash
+   ssh neuerbenutzer@server-ip
+   ```
+
+---
+
+## **5. SSH-Dienst neu starten**
+
+Nach den Änderungen die SSH-Konfiguration anwenden:
+```bash
+sudo systemctl restart ssh
+```
+
+---
+
+## **6. Sicherheitstest**
+
+1. **Versuche, dich als Root anzumelden**:
+   ```bash
+   ssh root@server-ip
+   ```
+   - Der Zugriff sollte verweigert werden.
+
+2. **Melde dich mit dem neuen Benutzer an**:
+   ```bash
+   ssh neuerbenutzer@server-ip
+   ```
+
+---
+
+## **7. Zusätzliche Sicherheitsmaßnahmen (optional)**
+
+- **Standard-SSH-Port ändern**:
+  Öffne `/etc/ssh/sshd_config` und ändere den Port:
+  ```bash
+  Port 2222
+  ```
+
+- **Firewall anpassen**:
+  Öffne den neuen SSH-Port in der Firewall:
+  ```bash
+  sudo ufw allow 2222/tcp
+  ```
+
+---

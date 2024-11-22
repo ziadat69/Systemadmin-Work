@@ -1,0 +1,96 @@
+
+## 🔒 **UFW: Einfache Firewall-Konfiguration**
+
+### 1️⃣ **Installation von UFW**
+```bash
+sudo apt update
+sudo apt install ufw -y
+```
+
+### 2️⃣ **UFW aktivieren**
+```bash
+sudo ufw enable
+```
+
+### 3️⃣ **Verbindungen erlauben**
+- SSH (Standard-Port 22):
+  ```bash
+  sudo ufw allow ssh
+  ```
+- HTTP:
+  ```bash
+  sudo ufw allow http
+  ```
+- HTTPS:
+  ```bash
+  sudo ufw allow https
+  ```
+
+### 4️⃣ **Standardrichtlinien setzen**
+- Alle eingehenden Verbindungen blockieren:
+  ```bash
+  sudo ufw default deny incoming
+  ```
+- Alle ausgehenden Verbindungen erlauben:
+  ```bash
+  sudo ufw default allow outgoing
+  ```
+
+### 5️⃣ **Status überprüfen**
+```bash
+sudo ufw status verbose
+```
+
+---
+
+## 🔒 **iptables: Erweiterte Firewall-Konfiguration**
+
+### 1️⃣ **Installation von iptables**
+```bash
+sudo apt update
+sudo apt install iptables -y
+```
+
+### 2️⃣ **Beispiele für Regeln**
+- SSH-Zugriff auf Port 22 erlauben:
+  ```bash
+  sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+  ```
+- HTTP-Zugriff erlauben:
+  ```bash
+  sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+  ```
+- Alle anderen Verbindungen blockieren:
+  ```bash
+  sudo iptables -A INPUT -j DROP
+  ```
+
+### 3️⃣ **Regeln speichern**
+- Installieren des Tools zum Speichern:
+  ```bash
+  sudo apt install iptables-persistent
+  ```
+- Regeln speichern:
+  ```bash
+  sudo netfilter-persistent save
+  ```
+
+### 4️⃣ **Regeln anzeigen**
+```bash
+sudo iptables -L -v
+```
+
+---
+
+## 🛠️ **Best Practices**
+1. **Nur benötigte Ports öffnen:** Beschränken Sie Verbindungen auf notwendige Dienste.
+2. **Regeln testen:** Führen Sie Tests durch, bevor Sie Regeln dauerhaft anwenden.
+3. **Protokollierung aktivieren:**
+   - UFW: `sudo ufw logging on`
+   - iptables: `sudo iptables -A INPUT -j LOG --log-prefix "IPTables-Dropped: "`
+4. **Regeln sichern:** Erstellen Sie Backups der Firewall-Einstellungen, z. B. mit:
+   ```bash
+   sudo iptables-save > /etc/iptables/rules.v4
+   ```
+
+---

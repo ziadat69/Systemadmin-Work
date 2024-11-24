@@ -8,5 +8,6 @@
 2. Day 2:
     - Eine externe Festplatte für Backups einrichten, indem eine Partition erstellt, formatiert und eingebunden wird.
     - LVM: Ein Physical Volume wurde erstellt, einer Volume Group hinzugefügt, ein Logical Volume angelegt und der Speicher flexibel erweitert.
+    - Mit rsync wurden Dateien und Ordner übertragen, dabei wurden Berechtigungen und Eigentümer beibehalten und die Datenübertragung über das Netzwerk mit SSH gesichert.
 
 

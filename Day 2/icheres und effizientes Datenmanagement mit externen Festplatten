@@ -1,0 +1,74 @@
+
+
+#### **Die Schritte:**
+
+1. **Externe Festplatte anschließen:**
+   - Schließe die Festplatte über den USB-Anschluss an.
+   - Überprüfe, ob das System die Festplatte erkannt hat, mit dem Befehl:
+
+   -->   sudo fdisk -l
+    
+     Es wird eine Liste der angeschlossenen Laufwerke angezeigt. Suche nach deiner externen Festplatte, z. B. `/dev/sdb`.
+
+2. **Eine neue Partition auf der Festplatte erstellen:**
+   - Verwende den folgenden Befehl:
+     
+   -->  sudo fdisk /dev/sdb
+    
+   - Innerhalb von `fdisk`:
+     - Drücke `n`, um eine neue Partition zu erstellen.
+     - Wähle die gesamte Größe der Festplatte für die Backups.
+     - Drücke `w`, um die Änderungen zu speichern.
+
+3. **Die neue Partition mit einem Dateisystem formatieren:**
+   - Wähle ein geeignetes Dateisystem, z. B. `ext4`:
+   
+    -->   sudo mkfs.ext4 /dev/sdb1
+
+     Jetzt ist die Partition bereit zur Nutzung.
+
+4. **Die Festplatte an einen bestimmten Ort einbinden:**
+   - Erstelle einen Ordner, um die Dateien zu speichern:
+
+   -->    sudo mkdir /mnt/backupdrive
+  
+   - Binde die Partition in diesen Ordner ein:
+   
+   -->    sudo mount /dev/sdb1 /mnt/backupdrive
+     
+
+5. **Automatische Einbindung einrichten:**
+   - Füge einen Eintrag in die Datei `/etc/fstab` ein, damit die Partition beim Systemstart automatisch eingebunden wird:
+     
+    -->   sudo vim /etc/fstab
+   
+     Füge die folgende Zeile hinzu:
+     ```
+     /dev/sdb1  /mnt/backupdrive  ext4  defaults  0  0
+     ```
+
+6. **Die Partition testen:**
+   - Erstelle einen Ordner für Bilder auf der Festplatte:
+ 
+  -->     sudo mkdir /mnt/backupdrive/photos
+    
+   - Kopiere einige Dateien in diesen Ordner:
+     
+   Beispiel -->  cp ~/Bilder/* /mnt/backupdrive/photos/
+     
+   - Überprüfe, ob die Dateien kopiert wurden:
+   
+  -->   ls -l /mnt/backupdrive/photos
+    
+
+---
+
+### **Das Ergebnis:**
+Jetzt hast du eine gut organisierte externe Festplatte, die alle deine Backups enthält. Diese Partition ist vollständig vom Betriebssystem getrennt. Falls dein Computer abstürzt oder von einem Virus betroffen ist, bleiben deine Dateien auf der externen Festplatte sicher.
+
+---
+
+### **Warum ist dieses Szenario nützlich?**
+1. **Platz sparen:** Statt große Dateien auf der internen Festplatte zu speichern, kannst du eine externe Partition verwenden.
+2. **Datensicherheit:** Deine persönlichen Dateien sind vor Systemfehlern geschützt.
+3. **Bessere Organisation:** Du kannst Daten wie Bilder, Videos und Dokumente in klar definierten Partitionen trennen.

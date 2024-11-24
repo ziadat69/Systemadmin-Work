@@ -1,0 +1,42 @@
+### **Datenübertragung mit rsync:**
+
+`rsync` ist ein leistungsstarkes Tool zum Übertragen von Dateien und Ordnern, sowohl lokal als auch über das Netzwerk. Es bewahrt Berechtigungen, Eigentümer und Zeitstempel und überträgt nur neue oder geänderte Daten.
+
+
+#### **Wichtige Optionen:**
+
+1. **Grundbefehl:**
+
+  -->   rsync [Optionen] Quelle Ziel
+ 
+
+2. **Archivmodus mit `-a`:**  
+   Bewahrt Berechtigungen, Eigentümer, Zeitstempel und kopiert symbolische Links.  
+   **Beispiel:**  
+
+-->     rsync -a /home/user1/docs/ /home/user2/backup/
+ 
+
+3. **Details anzeigen mit `-v`:**  
+   Zeigt eine Liste der kopierten Dateien.  
+   **Beispiel:**  
+
+  -->   rsync -av /home/user1/docs/ /home/user2/backup/
+   
+
+4. **Übertragung über SSH:**  
+   Kopiert Dateien sicher über das Netzwerk.  
+   **Beispiel:**  
+
+-->   rsync -a -e ssh /home/user/docs/ user@server:/backup/
+ 
+
+---
+
+#### **Beispiel im Alltag:**
+- **Szenario:** Sicherung wichtiger Arbeitsdateien auf einem Server.  
+   **Befehl:**  
+   
+ -->  rsync -a -e ssh /home/user/work/ user@server:/backup/work/
+  
+

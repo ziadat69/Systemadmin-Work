@@ -1,0 +1,76 @@
+### **LVM-Verwaltung (Logical Volume Management):**
+
+LVM ist ein System zur Verwaltung von Festplatten, das es ermöglicht, physische Datenträger zu gruppieren und flexible Speicherbereiche zu erstellen, deren Größe bei Bedarf einfach angepasst werden kann. Hier erklären wir die Schritte zur Erstellung eines **Physical Volume (PV)**, einer **Volume Group (VG)** und eines **Logical Volume (LV)**.
+
+---
+
+#### **Schritte:**
+
+1. **Erstellen eines Physical Volume (PV):**
+
+   Zunächst muss ein **Physical Volume (PV)** auf dem Datenträger erstellt werden, den Sie verwenden möchten. Dies geschieht mit dem Befehl `pvcreate`.
+
+   **Beispiel:**
+   Wenn Sie `/dev/sdb` als PV verwenden möchten:
+   
+   ---> sudo pvcreate /dev/sdb
+   
+   Dieser Befehl wandelt die Festplatte `/dev/sdb` in ein **Physical Volume** um, das später einer **Volume Group** hinzugefügt werden kann.
+
+---
+
+2. **Erstellen einer Volume Group (VG):**
+
+   Als Nächstes können Sie aus einem oder mehreren **Physical Volumes (PVs)** eine **Volume Group (VG)** erstellen. Eine **Volume Group** ist eine Sammlung von physischem Speicherplatz.
+
+   **Beispiel:**
+   Um eine **Volume Group** mit dem vorher erstellten PV (`/dev/sdb`) zu erstellen:
+  
+  --->  sudo vgcreate my_volume_group /dev/sdb
+
+   Hier wurde eine **Volume Group** mit dem Namen `my_volume_group` erstellt.
+
+---
+
+3. **Erstellen eines Logical Volume (LV):**
+
+   Nach der Erstellung der **Volume Group** können Sie nun ein **Logical Volume (LV)** innerhalb dieser Gruppe erstellen. Ein **Logical Volume** ist eine flexibel nutzbare Speichereinheit, ähnlich wie eine Partition.
+
+   **Beispiel:**
+   Um ein **Logical Volume** mit einer Größe von 10 GB in der **Volume Group** zu erstellen:
+
+   ---> sudo lvcreate -L 10G -n my_logical_volume my_volume_group
+
+   In diesem Beispiel:
+   - `-L 10G` gibt die Größe des **Logical Volume** an.
+   - `-n my_logical_volume` legt den Namen des **Logical Volume** fest.
+   - `my_volume_group` ist der Name der **Volume Group**, die den Speicherplatz enthält.
+
+---
+
+4. **Erweitern eines Logical Volume (LV):**
+
+   Falls der Speicherplatz eines **Logical Volume** nicht ausreicht, können Sie ihn mit dem Befehl `lvextend` erweitern.
+
+   **Beispiel:**
+   Um das **Logical Volume** um 5 GB zu vergrößern:
+   
+   ---> sudo lvextend -L +5G /dev/my_volume_group/my_logical_volume
+   
+
+   Nach der Erweiterung des Speicherplatzes müssen Sie das Dateisystem im **Logical Volume** anpassen, damit die neue Kapazität genutzt werden kann.
+
+   **Beispiel:**
+   Wenn das **Logical Volume** mit einem **ext4-Dateisystem** formatiert ist, erweitern Sie dieses mit:
+ 
+  ---> sudo resize2fs /dev/my_volume_group/my_logical_volume
+ 
+
+---
+
+#### **Zusammenfassung:**
+
+- Ein **Physical Volume (PV)** ist eine physische Festplatte oder ein Teil davon.
+- Eine **Volume Group (VG)** ist eine Sammlung von **Physical Volumes**.
+- Ein **Logical Volume (LV)** ist ein flexibel anpassbarer Speicherbereich innerhalb einer **Volume Group**.
+

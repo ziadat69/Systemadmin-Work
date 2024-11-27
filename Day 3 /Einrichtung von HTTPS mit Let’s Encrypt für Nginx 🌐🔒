@@ -1,0 +1,40 @@
+Installieren Sie Certbot und das Nginx Plugin:
+
+--> sudo yum install certbot python3-certbot-nginx -y
+
+Nginx läuft und den richtigen Domainnamen bedient. Die Domain-Einstellungen sollten in der Nginx-Konfigurationsdatei enthalten sein:
+
+--> sudo vim /etc/nginx/sites-available/default
+----------------------
+server {
+    listen 80;
+    server_name your_domain.com www.your_domain.com;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+----------------------
+Laden Sie Nginx neu:
+
+--> sudo systemctl reload nginx
+
+
+install Certbot:
+
+--> sudo yum install certbot python3-certbot-nginx -y
+
+
+SSL-Zertifikat mit Certbot erhalten:
+
+--> sudo certbot --nginx -d your_domain.com -d www.your_domain.com
+ Certbot wird die Nginx-Konfiguration automatisch aktualisieren, um HTTPS hinzuzufügen.
+
+
+Erneuerung überprüfen:
+
+--> sudo certbot renew --dry-run
+

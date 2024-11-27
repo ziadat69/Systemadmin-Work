@@ -1,0 +1,33 @@
+Die Nginx-Konfigurationsdatei bearbeiten:
+Öffnen Sie die Standardkonfigurationsdatei von Nginx:
+
+--> sudo vim /etc/nginx/sites-available/default
+----------------
+
+server {
+    listen 80;
+
+    server_name your_domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+----------------
+
+Die Konfiguration testen:
+
+--> sudo nginx -t
+
+Nginx neu laden:
+
+--> sudo systemctl reload nginx
+
+HTTP-Verkehr in der Firewall zulassen:
+
+--> sudo ufw allow 'Nginx HTTP'

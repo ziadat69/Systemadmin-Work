@@ -1,0 +1,75 @@
+Um Nginx zu installieren und eine einfache HTML-Seite einzurichten, können Sie die folgenden Schritte ausführen:
+
+---
+
+
+2. Nginx installieren: 
+   
+ -->  sudo apt install nginx -y
+   
+
+3. Überprüfen, ob Nginx läuft: 
+   Nach der Installation wird Nginx automatisch gestartet. Überprüfen Sie den Status mit:  
+  
+   -->  sudo systemctl status nginx
+  
+   Wenn Sie „active (running)“ sehen, läuft Nginx erfolgreich.
+
+---
+
+### **Schritt 2: Eine einfache HTML-Seite erstellen**
+1. Zum Standard-Webverzeichnis von Nginx wechseln:
+   Das Standardverzeichnis für Nginx-Webseiten ist `/var/www/html`. Wechseln Sie in dieses Verzeichnis:  
+   
+   -->  cd /var/www/html
+ 
+
+2. **Eine neue HTML-Datei erstellen:**  
+   Verwenden Sie einen Texteditor wie `nano`, um eine HTML-Datei zu erstellen:  
+
+   -->  sudo vim index.html
+
+
+3. **Folgenden Inhalt in die Datei einfügen:**  
+ 
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <title>Willkommensseite</title>
+   </head>
+   <body>
+       <h1>Willkommen in Day3 !</h1>
+       <p>Der Server wurde erfolgreich eingerichtet.</p>
+   </body>
+   </html>
+ 
+
+4. **Die Datei speichern:
+
+     :wq
+
+---
+
+### **Schritt 3: Die Konfiguration testen**
+1. **Browser öffnen:**  
+   Geben Sie die IP-Adresse Ihres Servers in die Adressleiste ein. Wenn Sie auf dem lokalen Rechner arbeiten, verwenden Sie:  
+ 
+   http://localhost
+   ```  
+   oder die IP-Adresse:  
+   ```
+   http://127.0.0.1
+
+
+2. **Seite anzeigen:**  
+   Sie sollten die erstellte Willkommensseite sehen.
+
+---
+
+### **Schritt 4: Firewall-Einstellungen konfigurieren (optional)**
+Falls Sie eine Firewall wie `ufw` verwenden, aktivieren Sie den Zugriff für Nginx:  
+```bash
+sudo ufw allow 'Nginx Full'
+```
+
+---

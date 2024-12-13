@@ -3,8 +3,8 @@
 
 1. **Aktualisiere die Paketliste und installiere OpenSSH-Server**:
  
- --->  sudo apt update
- --->  sudo apt install openssh-server -y
+ --->  sudo yum update
+ --->  sudo yum install openssh-server -y
    
 
 2. **Überprüfen, ob der SSH-Dienst läuft**:

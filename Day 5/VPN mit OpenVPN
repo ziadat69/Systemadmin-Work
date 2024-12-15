@@ -1,0 +1,43 @@
+
+
+
+#### **Schritte zur Einrichtung:**
+
+1. **Installiere OpenVPN**:
+ 
+ 
+ --->   sudo apt install openvpn
+
+
+2. **OpenVPN-Server einrichten**:
+   
+ --->   sudo apt install openvpn   sudo apt install easy-rsa
+   
+
+
+ ---> vim /etc/openvpn/server.conf
+
+     port 1194
+     proto udp
+     dev tun
+     ca ca.crt
+     cert server.crt
+     key server.key
+     dh dh.pem
+    
+
+3. **Starte den OpenVPN-Server**:
+
+ --->    sudo systemctl start openvpn@server
+ --->   sudo systemctl enable openvpn@server
+
+
+4. **Client einrichten**:
+   - Kopiere die Client-Konfigurationsdatei auf den Client-Computer.
+   - Starte OpenVPN auf dem Client mit:
+
+
+--->   sudo openvpn --config client.ovpn
+
+
+-

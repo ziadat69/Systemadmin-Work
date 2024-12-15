@@ -1,0 +1,78 @@
+in Skript alle 30 Minuten ausführt und sicherstellt, dass der Dienst beim Starten des Systems automatisch gestartet wird
+
+
+1. Erstelle das Skript
+
+---> vim  /usr/local/bin/sysinfo.sh
+
+#!/bin/bash
+
+echo "Systeminformationen:"
+echo "Im:"  $(whoami) >> var/log/systeminfo.log
+echto "date" $(date +%x) >> var/log/systeminfo.log
+echto "uhr" $(date +%r) >> var/log/systeminfo.log
+echto "space" $(df -h) >> var/log/systeminfo.log
+echto "memory" $(free -m) >> var/log/systeminfo.log
+
+________________________________________________________________________________________________________________________
+
+Mache das Skript ausführbar:
+
+--> sudo chmod +x /usr/local/bin/sysinfo.sh
+
+________________________________________________________________________________________________________________________
+
+2. Erstelle die systemd-Dienstdatei
+
+--> sudo vim /etc/systemd/system/sysinfo.service
+
+[Unit]
+Description=System Information Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/sysinfo.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
+
+________________________________________________________________________________________________________________________
+
+3. Erstelle den Timer
+
+--> sudo vim /etc/systemd/system/sysinfo.timer
+
+[Unit]
+Description=Run sysinfo script every 30 minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=30min
+
+[Install]
+WantedBy=timers.target
+
+________________________________________________________________________________________________________________________
+
+4. 
+
+
+--> sudo systemctl daemon-reload
+--> sudo systemctl enable sysinfo.timer
+--> sudo systemctl start sysinfo.timer
+
+--> sudo systemctl status sysinfo.timer
+
+
+________________________________________________________________________________________________________________________
+
+5.   tail -f var/log/systeminfo.log 
+
+
+
+
+
+
+
+

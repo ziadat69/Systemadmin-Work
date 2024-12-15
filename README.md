@@ -10,4 +10,8 @@
     - LVM: Ein Physical Volume wurde erstellt, einer Volume Group hinzugefügt, ein Logical Volume angelegt und der Speicher flexibel erweitert.
     - Mit rsync wurden Dateien und Ordner übertragen, dabei wurden Berechtigungen und Eigentümer beibehalten und die Datenübertragung über das Netzwerk mit SSH gesichert.
 
-
+      
+3. Day 3:
+    - Installation von Nginx
+    - Erstellen einer HTML-Seite und das Konfigurieren eines Proxy-Servers
+    - ein SSL-Zertifikat mit Certbot für HTTPS eingerichtet.

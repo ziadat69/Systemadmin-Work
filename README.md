@@ -14,3 +14,8 @@
     - Installation von Nginx
     - Erstellen einer HTML-Seite und das Konfigurieren eines Proxy-Servers
     - ein SSL-Zertifikat mit Certbot für HTTPS eingerichtet.
+    - 
+4. Day 4:
+    - Erstellung eines Skripts zur Sammlung von Systeminformationen
+    - Erstellung einer systemd-Dienstdatei und eines Timers, um das Skript alle 30 Minuten auszuführen
+    - Aktivierung und Start des Timers, sowie Überprüfung des Log-Files mit tail

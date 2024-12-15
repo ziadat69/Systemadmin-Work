@@ -1,0 +1,9 @@
+
+Um mit tcpdump den HTTP-Verkehr auf Port 22 zu erfassen und in einer Datei zu speichern:
+
+-->  sudo tcpdump -i ens33 port 22  >> file.txt & 
+
+
+
+
+

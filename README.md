@@ -19,3 +19,10 @@
     - Erstellung eines Skripts zur Sammlung von Systeminformationen
     - Erstellung einer systemd-Dienstdatei und eines Timers, um das Skript alle 30 Minuten auszuführen
     - Aktivierung und Start des Timers, sowie Überprüfung des Log-Files mit tail
+
+      
+4. Day 5:
+    - Konfiguration von iptables für SSH, HTTP und HTTPS, Blockierung anderer Verbindungen.
+    - Protokollierung abgelehnter Pakete mit LOG.
+    - Erfassung von HTTP-Verkehr auf Port 22 mit tcpdump.
+    - Installation und Einrichtung von OpenVPN für VPN-Verbindungen.

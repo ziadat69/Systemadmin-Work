@@ -23,7 +23,13 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________________________________
 
+ Option =
+# um abgelehnte Pakete aufzuzeichnen, anstatt sie direkt zu verwerfen, kannst du die LOG-Option verwenden
+    -->  sudo iptables -A INPUT -j LOG --log-prefix "DROPPED: " --log-level 4
 
+    --->  sudo tail -f /var/log/syslog 
+
+________________________________________________________________________________________________________________
 # Alle anderen Verbindungen blockieren
 
 --->  sudo iptables -A INPUT -j DROP

@@ -3,8 +3,8 @@
 
 ### 1️⃣ **Installation von UFW**
 
----> sudo apt update
----> sudo apt install ufw -y
+---> sudo yum update
+---> sudo yum install ufw -y
 
 
 ### 2️⃣ **UFW aktivieren**
@@ -47,8 +47,8 @@
 
 ### 1️⃣ **Installation von iptables**
 
----> sudo apt update
----> sudo apt install iptables -y
+---> sudo yum update
+---> sudo yum install iptables -y
 
 
 ### 2️⃣ **Beispiele für Regeln**

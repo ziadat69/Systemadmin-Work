@@ -1,0 +1,34 @@
+
+--> sudo yum install epel-release -y:
+
+    Aktiviert das EPEL-Repository, das Fail2Ban enthält.
+
+
+--> sudo yum install fail2ban -y
+
+    Installiert Fail2Ban.
+
+--> sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+    Erstellt eine Kopie der Standardkonfiguration zur Bearbeitung.
+
+--> sudo nano /etc/fail2ban/jail.local
+
+[sshd]
+enabled = true      # Aktiviert den SSH-Schutz
+maxretry = 3        # Anzahl der fehlgeschlagenen Versuche vor einer Sperre
+bantime = 600       # Sperrdauer in Sekunden (600 Sekunden = 10 Minuten)
+findtime = 300      # Zeitrahmen für die Berechnung der fehlgeschlagenen Versuche
+
+ Übernimmt die Änderungen. 
+                            --> sudo systemctl restart fail2ban
+
+Startet Fail2Ban automatisch nach einem Neustart des Servers. 
+
+                            --> sudo systemctl enable fail2ban
+
+Zeigt gesperrte IP-Adressen und aktive Filter an.
+
+                            --> sudo fail2ban-client status sshd 
+
+

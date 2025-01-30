@@ -1,0 +1,26 @@
+Fail2Ban für andere Dienste konfigurieren (Apache/Nginx)
+
+
+-- Apache schützen:
+
+[apache-auth]
+enabled = true
+port = http,https
+logpath = /var/log/apache2/error.log
+maxretry = 5
+
+
+
+-- Nginx schützen:
+
+[nginx-http-auth]
+enabled = true
+port = http,https
+logpath = /var/log/nginx/error.log
+maxretry = 5
+
+
+
+-- Fail2Ban neu starten:
+
+---> sudo systemctl restart fail2ban

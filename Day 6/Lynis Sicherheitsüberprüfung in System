@@ -1,0 +1,17 @@
+Lynis zur Sicherheitsüberprüfung nutzen
+
+
+1. Installation von Lynis
+
+
+--> sudo apt install lynis -y
+
+
+
+2.  System-Sicherheitsprüfung starten
+
+--> sudo lynis audit system
+
+3. Bericht anzeigen
+
+--> cat /var/log/lynis.log

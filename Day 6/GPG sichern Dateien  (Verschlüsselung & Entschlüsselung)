@@ -1,0 +1,12 @@
+1. Datei verschlüsseln
+
+--> gpg -c meine_datei.txt
+
+Nach Eingabe eines Passworts wird die verschlüsselte Datei meine_datei.txt.gpg erstellt.
+
+
+2. Datei entschlüsseln
+
+--> gpg meine_datei.txt.gpg
+
+Nach Eingabe des Passworts wird die Datei wieder entschlüsselt.

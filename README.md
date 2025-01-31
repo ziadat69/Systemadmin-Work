@@ -27,8 +27,9 @@
     - Erfassung von HTTP-Verkehr auf Port 22 mit tcpdump.
     - Installation und Einrichtung von OpenVPN für VPN-Verbindungen.
 
-4. Day 6: TOOLS 
-    - Fail2Ban schützt SSH, Apache & Nginx vor Brute-Force-Angriffen
-    - Lynis analysiert das System auf Sicherheitslücken.
-    - GPG verschlüsselt Dateien für mehr Datenschutz.
+4. Day 6:
+    TOOLS:
+    - Fail2Ban: schützt SSH, Apache & Nginx vor Brute-Force-Angriffen
+    - Lynis: analysiert das System auf Sicherheitslücken.
+    - GPG: verschlüsselt Dateien für mehr Datenschutz.
 

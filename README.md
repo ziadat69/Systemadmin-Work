@@ -26,8 +26,14 @@
     - Protokollierung abgelehnter Pakete mit LOG.
     - Erfassung von HTTP-Verkehr auf Port 22 mit tcpdump.
     - Installation und Einrichtung von OpenVPN für VPN-Verbindungen.
-
-4. Day 7:
+      
+6. Day 6: Überwachungs- und Performance-Tools
+    - Nagios: Überwacht Prozesse und Ressourcen wie CPU und Speicher.
+    - htop: Zeigt Prozesse und Systemressourcen in Echtzeit an.
+    - iotop: Überwacht Festplatten-I/O und zeigt die größten Datenverbraucher.
+    - Bash-Skript: Sammelt stündlich Leistungsdaten und versendet sie per E-Mail.
+      
+7. Day 7:
     Sicherheits-Tools für Serversicherheit:
     - Fail2Ban: schützt SSH, Apache & Nginx vor Brute-Force-Angriffen
     - Lynis: analysiert das System auf Sicherheitslücken.

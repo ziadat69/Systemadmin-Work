@@ -1,0 +1,54 @@
+#!/bin/bash
+# Automatisierte Installation von Nagios auf Ubuntu
+
+set -e
+
+echo "Updating system..."
+sudo apt update && sudo apt upgrade -y
+
+echo "Installing dependencies..."
+sudo apt install -y apache2 php libapache2-mod-php unzip wget build-essential \
+                   libgd-dev libssl-dev daemon autoconf gcc libc6 make wget \
+                   unzip bc gawk dc dnsutils mailutils postfix
+
+echo "Creating Nagios user..."
+sudo useradd nagios
+sudo usermod -aG nagios www-data
+
+cd /usr/src
+echo "Downloading Nagios..."
+sudo wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.5.1.tar.gz
+sudo tar xzf nagios-4.5.1.tar.gz
+cd nagios-4.5.1
+
+echo "Compiling Nagios..."
+sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+sudo make all
+sudo make install
+sudo make install-init
+sudo make install-config
+sudo make install-commandmode
+
+echo "Installing Nagios plugins..."
+cd /usr/src
+sudo wget https://nagios-plugins.org/download/nagios-plugins-2.3.3.tar.gz
+sudo tar xzf nagios-plugins-2.3.3.tar.gz
+cd nagios-plugins-2.3.3
+sudo ./configure
+sudo make
+sudo make install
+
+echo "Installing Nagios web interface..."
+sudo make install-webconf
+sudo a2enmod rewrite
+sudo a2enmod cgi
+sudo systemctl restart apache2
+
+echo "Setting up Nagios admin user..."
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+echo "Starting Nagios..."
+sudo systemctl enable nagios
+sudo systemctl start nagios
+
+echo "Nagios installation completed! Access via http://<YOUR-IP>/nagios"

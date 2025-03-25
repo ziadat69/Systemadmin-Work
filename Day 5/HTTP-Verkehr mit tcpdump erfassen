@@ -5,5 +5,23 @@ Um mit tcpdump den HTTP-Verkehr auf Port 22 zu erfassen und in einer Datei zu sp
 
 
 
+überwachen:
+
+
+
+Nur den Verkehr zu oder von einer bestimmten IP-Adresse anzeigen:
+ 
+-->  sudo tcpdump -i ens160 host 192.168.1.1
+
+
+
+Nur den Verkehr auf einem bestimmten Port anzeigen 
+
+-->  sudo tcpdump -i ens160 port 80
+
+
+
+
+
 
 

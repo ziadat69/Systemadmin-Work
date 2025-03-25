@@ -34,6 +34,10 @@
 
 4. **Client einrichten**:
    - Kopiere die Client-Konfigurationsdatei auf den Client-Computer.
+
+ --->  --->  scp /etc/openvpn/client.ovpn user@192.168.1.200:/home/user/
+
+
    - Starte OpenVPN auf dem Client mit:
 
 

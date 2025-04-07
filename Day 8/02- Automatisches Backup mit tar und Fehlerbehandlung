@@ -1,0 +1,21 @@
+--> vim BackupScript.sh
+
+
+#!/bin/bash
+
+# Backup Befehl
+if tar -czf /home/glitchserver/backupFile.tar /home/glitchserver/backupFile > /dev/null 2>&1; then
+    echo "Die Datei wurde erfolgreich gespeichert."
+else
+    echo "Fehler aufgetreten."
+fi
+
+
+--> ./ BackupScript.sh
+
+
+
+--> crontab -e
+
+
+0 2 * * * /home/glitchserver/backup.sh

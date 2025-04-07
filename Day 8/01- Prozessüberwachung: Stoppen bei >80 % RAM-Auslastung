@@ -1,0 +1,22 @@
+
+
+#!/bin/bash
+
+# Maximale erlaubte Speicherauslastung (in Prozent)
+LIMIT=80
+
+# Prozesse finden, die den erlaubten Speicherverbrauch überschreiten
+ps -eo pid,comm,%mem --sort=-%mem | awk -v limit=$LIMIT 'NR>1 && $3 > limit { print $1, $2, $3 }' | while read pid cmd mem; do
+    echo "Prozess $cmd (PID: $pid) verbraucht $mem% Speicher – wird beendet"
+    kill -9 $pid
+done
+
+Was macht das Skript?
+
+    Es setzt ein Limit für den maximal erlaubten Speicherverbrauch (hier 80 %).
+
+    Es listet alle laufenden Prozesse auf und sortiert sie nach Speicherverbrauch.
+
+    Wenn ein Prozess mehr als 80 % Speicher verbraucht, wird er erkannt…
+
+    …und mit kill -9 zwangsweise beendet.

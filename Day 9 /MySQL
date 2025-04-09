@@ -1,0 +1,41 @@
+-> sudo apt install mysql-server
+
+-> udo systemctl status mysql
+
+-> sudo mysql -u root -p
+
+
+DataBase zeigen --> show DataBase
+
+DataBase erstellen-->   CREATE DATABASE company_db; 
+
+DataBase Benutzen ---> USE company_db;
+
+
+Taballe erstllen -->
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    position VARCHAR(50),
+    salary DECIMAL(10, 2),
+    hire_date DATE
+);
+
+
+Daten erstellen -->
+
+INSERT INTO employees (name, position, salary, hire_date)
+VALUES
+('John Doe', 'Software Engineer', 6000.00, '2020-01-15'),
+('Jane Smith', 'Marketing Manager', 5500.00, '2019-08-20'),
+('Emily Johnson', 'HR Specialist', 4500.00, '2021-05-11');
+
+
+
+
+_____ beispiel befehle :
+
+SELECT * FROM employees WHERE salary > 5000;
+
+SELECT * FROM employees WHERE hire_date > '2020-01-01';

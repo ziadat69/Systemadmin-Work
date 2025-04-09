@@ -1,0 +1,18 @@
+
+
+--> sudo apt install apache2
+
+--> sudo apt install nginx
+
+--> sudo apt install mysql-server
+
+
+PHP installieren:
+
+sudo apt install php libapache2-mod-php (für Apache)
+
+oder 
+ 
+sudo apt install php-fpm (für Nginx) 
+
+

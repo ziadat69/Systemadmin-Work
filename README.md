@@ -39,3 +39,11 @@
     - Lynis: analysiert das System auf Sicherheitslücken.
     - GPG: verschlüsselt Dateien für mehr Datenschutz.
 
+8. Day 8:
+    Systemautomatisierung & Ressourcenüberwachung:
+    - Prozessüberwachung bei >80 % RAM: Ein Skript überwacht die RAM-Auslastung
+      und stoppt automatisch Prozesse, wenn sie 80 % überschreitet.
+    - Automatisches Backup mit tar: Ein automatisiertes Skript erstellt
+      regelmäßig Backups mit tar und behandelt Fehler beim Backup-Vorgang.
+   
+

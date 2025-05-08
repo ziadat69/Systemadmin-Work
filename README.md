@@ -35,15 +35,19 @@
       
 7. Day 7:
     Sicherheits-Tools für Serversicherheit:
-    - Fail2Ban: schützt SSH, Apache & Nginx vor Brute-Force-Angriffen
-    - Lynis: analysiert das System auf Sicherheitslücken.
+    - Fail2Ban: schützt SSH, Apache & Nginx vor Brute-Force-Angriffen.
     - GPG: verschlüsselt Dateien für mehr Datenschutz.
+    - Lynis: analysiert das System auf Sicherheitslücken.
+    - RKHunter: Erkennung von Rootkits, Backdoors und lokalen Exploits.
+    - Chkrootkit: Rootkits auf einem Linux-System zu finden.
 
 8. Day 8:
     Systemautomatisierung & Ressourcenüberwachung:
-    - Prozessüberwachung bei >80 % RAM: Ein Skript überwacht die RAM-Auslastung
+    - Prozessüberwachung bei >80 % RAM:
+      Ein Skript überwacht die RAM-Auslastung
       und stoppt automatisch Prozesse, wenn sie 80 % überschreitet.
-    - Automatisches Backup mit tar: Ein automatisiertes Skript erstellt
+    - Automatisches Backup mit tar:
+      Ein automatisiertes Skript erstellt
       regelmäßig Backups mit tar und behandelt Fehler beim Backup-Vorgang.
    
 

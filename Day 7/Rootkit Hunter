@@ -1,0 +1,13 @@
+Funktionen:
+
+    Sucht nach Rootkits, Backdoors und Exploits
+
+    Prüft Systemdateien, Log-Dateien und Befehle auf verdächtige Aktivitäten
+
+Installation:
+
+-- sudo apt install rkhunter
+
+Verwendung:
+
+-- sudo rkhunter --check 

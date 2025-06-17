@@ -81,10 +81,6 @@ http_access deny all
 
 
 
-
-
-
-
 ④ إعادة تشغيل الخدمة
 
 sudo systemctl restart squid
@@ -99,3 +95,119 @@ sudo ufw allow 3128/tcp
 hostname -I
 
 مثلاً: 192.168.1.100 ← هذا هو عنوان البروكسي الذي ستربط به الأجهزة.
+⑦ ضبط البروكسي على جهاز المستخدم
+مثال في إعدادات المتصفح أو النظام:
+
+    Proxy IP: 192.168.1.100
+
+    Port: 3128
+
+    Username: user1
+
+    Password: التي أدخلتها عند إنشاء المستخدم
+
+⑧ اختبار الفلترة
+
+    جرّب فتح facebook.com ➜ يجب أن يُحجب ✅
+
+    جرّب تحميل ملف .exe ➜ يجب أن يُمنع ✅
+
+    جرّب موقع آخر ➜ يُسمح بالوصول ✅
+
+⑨ عرض سجل النشاطات
+
+sudo tail -f /var/log/squid/access.log
+
+
+
+متال 
+
+
+
+
+
+1. تثبيت Squid على السيرفر
+
+لو السيرفر يستخدم Ubuntu أو Debian:
+
+sudo apt update
+sudo apt install squid apache2-utils -y
+
+2. إنشاء ملف المستخدمين (مصادقة)
+
+بروتوكول المصادقة سيمنع الوصول إلا للمصرح لهم:
+
+sudo htpasswd -c /etc/squid/passwd admin
+
+    استبدل admin باسم المستخدم الذي تريد.
+
+    سيطلب كلمة مرور.
+
+3. إعداد ملف تكوين Squid
+
+افتح الملف:
+
+sudo nano /etc/squid/squid.conf
+
+امسح المحتوى الموجود (أو خذ نسخة احتياطية أولًا) ثم الصق التالي مع تعديل IP الشبكة حسب شبكتك:
+
+http_port 3128
+
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic realm Restricted Proxy
+acl authenticated proxy_auth REQUIRED
+http_access allow authenticated
+
+# تحديد الشبكة المحلية (عدل هذا حسب شبكتك)
+acl localnet src 192.168.1.0/24
+
+# حظر مواقع معينة
+acl blocked_sites dstdomain .facebook.com .youtube.com .twitter.com
+http_access deny blocked_sites
+
+# السماح للشبكة المحلية فقط
+http_access allow localnet
+http_access deny all
+
+access_log /var/log/squid/access.log squid
+
+4. إعادة تشغيل خدمة Squid لتطبيق التغييرات
+
+sudo systemctl restart squid
+
+5. معرفة عنوان IP السيرفر
+
+لتستخدمه في ضبط الأجهزة:
+
+hostname -I
+
+مثلاً سيظهر: 192.168.1.100
+6. ضبط أجهزة الموظفين (العملاء)
+
+    على كل جهاز موظف، في إعدادات الشبكة أو المتصفح:
+
+        Proxy IP: 192.168.1.100 (عنوان سيرفر البروكسي)
+
+        Port: 3128
+
+        عند التصفح، ستُطلب بيانات الدخول (التي أنشأتها في الخطوة 2)
+
+7. اختبار الحظر
+
+    من جهاز موظف، حاول فتح facebook.com أو أي موقع محظور → يجب أن يتم المنع.
+
+    مواقع أخرى مسموح بها.
+
+ملاحظات مهمة:
+
+    إذا الشبكة تستخدم DHCP، تأكد من أن عنوان السيرفر ثابت (Static IP).
+
+    يمكن تعديل قائمة المواقع المحظورة بإضافة أو إزالة من acl blocked_sites.
+
+    يمكن توسيع الحظر ليشمل أنواع ملفات أخرى كما تريد.
+
+هل تريدني أساعدك بكتابة سكريبت Shell جاهز لتنفيذ هذه الخطوات دفعة واحدة؟ أو هل تحتاج شرح كيف تضبط البروكسي تلقائيًا على أجهزة الموظفين؟
+
+
+ChatGPT kann Fehler machen. Überprüfe wichtige Informationen. Siehe Cookie-Voreinstellungen.
+

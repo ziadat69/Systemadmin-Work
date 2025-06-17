@@ -78,3 +78,24 @@ access_log /var/log/squid/access.log squid
 # =========================
 http_access allow localnet
 http_access deny all
+
+
+
+
+
+
+
+④ إعادة تشغيل الخدمة
+
+sudo systemctl restart squid
+sudo systemctl enable squid
+
+⑤ فتح منفذ 3128 في الجدار الناري (إن وجد)
+
+sudo ufw allow 3128/tcp
+
+⑥ الحصول على عنوان الـ IP للسيرفر
+
+hostname -I
+
+مثلاً: 192.168.1.100 ← هذا هو عنوان البروكسي الذي ستربط به الأجهزة.

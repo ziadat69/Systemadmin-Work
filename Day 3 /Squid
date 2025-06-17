@@ -1,0 +1,80 @@
+① تثبيت Squid و أدوات المصادقة
+🔹 على Ubuntu / Debian:
+
+sudo apt update
+sudo apt install squid apache2-utils -y
+
+🔹 على CentOS / RHEL:
+
+sudo dnf install squid httpd-tools -y
+
+② إنشاء مستخدم للبروكسي
+
+sudo touch /etc/squid/passwd
+sudo htpasswd /etc/squid/passwd user1
+
+🔑 استبدل user1 باسم المستخدم الذي تريده. وأدخل كلمة مرور عند الطلب.
+③ نسخ وضبط ملف إعداد Squid
+أولاً: خذ نسخة احتياطية من الملف الأصلي:
+
+sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.bak
+
+ثانيًا: افتح الملف للتعديل:
+
+sudo nano /etc/squid/squid.conf
+
+ثالثًا: الصق الإعداد الاحترافي التالي:
+
+# ================================
+# Squid Proxy Config (مستوى احترافي)
+# مستشفى أو مؤسسة تعليمية
+# ================================
+
+http_port 3128
+
+# ===============================
+# مصادقة المستخدمين (Basic Auth)
+# ===============================
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic realm RKH Secure Proxy
+acl authenticated proxy_auth REQUIRED
+http_access allow authenticated
+
+# =========================
+# تحديد الشبكة الداخلية
+# =========================
+acl localnet src 192.168.0.0/16
+acl SSL_ports port 443
+acl Safe_ports port 80 443 21
+acl CONNECT method CONNECT
+
+# =========================
+# فلترة الملفات المحظورة
+# =========================
+acl bad_files url_regex -i \.exe$ \.mp4$ \.torrent$ \.zip$ \.rar$
+http_access deny bad_files
+
+# =========================
+# فلترة المواقع المحظورة
+# =========================
+acl blocked_sites dstdomain .facebook.com .tiktok.com .pornhub.com
+http_access deny blocked_sites
+
+# =========================
+# التحكم في السرعة (Bandwidth)
+# =========================
+delay_pools 1
+delay_class 1 2
+delay_access 1 allow localnet
+delay_parameters 1 125000/125000 32000/32000
+
+# =========================
+# تسجيل الدخول (Logs)
+# =========================
+access_log /var/log/squid/access.log squid
+
+# =========================
+# السماح بالوصول لشبكتنا
+# =========================
+http_access allow localnet
+http_access deny all
